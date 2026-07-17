@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Funding Commons | Innovation Commons</title>
+<meta name="description" content="A first-cheque map of UK deep-tech and spinout funding. Grants, programmes and investors plotted by technology readiness and entry ticket, classified by whether the money is actually reachable.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,900;1,9..144,500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4EFE6; --ink:#1A1814; --oxide:#B13B1F; --gold:#C89944;
+  --moss:#5B6B4A; --slate:#4A5568; --stone:#8A8375;
+  --card:#FFFFFF; --line:#D9D2C4; --dim:.28;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:var(--oxide)}
+.mono{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.12em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+/* Masthead */
+header{border-bottom:3px solid var(--ink);padding:26px 0 22px}
+.masthead-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.masthead-top .mono{font-size:11px;color:var(--ink)}
+.masthead-top .edition{color:var(--oxide)}
+h1{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(40px,7vw,72px);letter-spacing:-.02em;line-height:1.02;margin-top:14px}
+h1 em{font-style:italic;font-weight:500;color:var(--oxide)}
+.standfirst{max-width:760px;margin-top:14px;font-size:17px;color:#3A362E}
+.lineage{max-width:760px;margin-top:10px;font-size:13.5px;color:var(--stone)}
+/* Controls */
+.controls{position:sticky;top:0;background:var(--paper);z-index:30;border-bottom:1px solid var(--line);padding:14px 0}
+.controls-inner{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.ctl-label{font-size:10.5px;color:var(--stone);margin-right:2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:5px 10px;cursor:pointer;border-radius:2px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+select{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:5px 8px;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:2px}
+.toggle{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.toggle input{position:absolute;opacity:0;width:0;height:0}
+.track{width:34px;height:18px;border:1px solid var(--ink);border-radius:10px;position:relative;flex:none;background:transparent;transition:background .15s}
+.knob{position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--ink);transition:transform .15s}
+.toggle input:checked + .track{background:var(--oxide);border-color:var(--oxide)}
+.toggle input:checked + .track .knob{transform:translateX(16px);background:var(--paper)}
+.toggle input:focus-visible + .track{outline:2px solid var(--oxide);outline-offset:2px}
+.toggle .t-label{font-size:10.5px}
+.count{font-size:10.5px;color:var(--stone);margin-left:auto}
+/* Strips */
+.strip{border:1px solid var(--line);background:#EFE8DA;padding:10px 14px;font-size:13.5px;margin:16px 0 0;color:#3A362E}
+.strip.gap{border-left:4px solid var(--oxide);background:#F3E4DE;display:none}
+.strip.gap.show{display:block}
+/* Legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin:18px 0 6px;font-size:10.5px}
+.legend .key{display:flex;align-items:center;gap:6px;color:#3A362E}
+.swatch{width:11px;height:11px;border-radius:2px;flex:none}
+/* Grid */
+.grid-area{display:flex;gap:0;margin:10px 0 8px}
+.y-axis{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-size:10.5px;color:var(--stone);padding-left:2px;flex:none}
+.lanes{flex:1;min-width:0;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.lane{display:flex;align-items:stretch;border-top:1px dashed var(--line);min-height:64px}
+.lane:first-child{border-top:none}
+.lane-label{flex:none;width:92px;font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--stone);padding:8px 6px 8px 10px;border-right:1px dashed var(--line);display:flex;align-items:center}
+.lane-cards{flex:1;display:flex;flex-wrap:wrap;gap:8px;padding:8px 10px;align-content:flex-start}
+.x-axis{display:flex;justify-content:space-between;padding:6px 10px 0 108px;font-size:10.5px;color:var(--stone)}
+.x-caption{text-align:center;font-size:10.5px;color:var(--stone);padding:4px 0 0 92px}
+/* Cards */
+.card{border:1px solid var(--line);border-left:4px solid var(--stone);background:var(--card);padding:8px 10px;width:172px;cursor:pointer;text-align:left;font:inherit;color:inherit;border-radius:2px;transition:box-shadow .12s,opacity .15s}
+.card:hover{box-shadow:2px 2px 0 var(--ink)}
+.card:focus-visible{outline:2px solid var(--oxide);outline-offset:2px}
+.card.dim{opacity:var(--dim)}
+.card .nm{font-weight:600;font-size:13px;line-height:1.25}
+.card .meta{display:flex;justify-content:space-between;gap:6px;margin-top:5px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.04em;color:var(--stone);text-transform:uppercase}
+.card .sig{margin-top:4px;font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase}
+.sig.front{color:var(--oxide)} .sig.second{color:var(--gold)}
+.card.c-open-national{border-left-color:var(--oxide)}
+.card.c-open-regional{border-left-color:var(--gold)}
+.card.c-grant{border-left-color:var(--moss)}
+.card.c-captive{border-left-color:var(--slate)}
+.card.c-public{border-left-color:var(--stone)}
+.card.c-wrong-stage{border-left-color:#C4BBA9}
+.sw-open-national{background:var(--oxide)} .sw-open-regional{background:var(--gold)}
+.sw-grant{background:var(--moss)} .sw-captive{background:var(--slate)}
+.sw-public{background:var(--stone)} .sw-wrong-stage{background:#C4BBA9}
+/* Panel */
+.panel{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--card);border-left:3px solid var(--ink);box-shadow:-6px 0 24px rgba(26,24,20,.18);z-index:60;transform:translateX(105%);transition:transform .2s ease;overflow-y:auto;padding:26px 24px}
+.panel.open{transform:none}
+.panel .p-cls{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.panel h2{font-family:"Fraunces",serif;font-weight:900;font-size:27px;line-height:1.1;margin:8px 0 2px}
+.panel .p-fam{font-size:13px;color:var(--stone);margin-bottom:14px}
+.p-facts{border-top:1px solid var(--line);margin-top:6px}
+.p-row{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.p-row dt{flex:none;width:104px;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);padding-top:2px}
+.p-row dd{flex:1}
+.p-note{margin:14px 0;font-size:14.5px}
+.p-link{display:inline-block;margin-top:4px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--oxide);text-decoration:none;border-bottom:2px solid var(--oxide);padding-bottom:2px}
+.p-close{position:absolute;top:14px;right:14px;border:1px solid var(--ink);background:transparent;font-family:"JetBrains Mono",monospace;font-size:11px;padding:4px 9px;cursor:pointer;border-radius:2px}
+.p-close:hover{background:var(--ink);color:var(--paper)}
+.scrim{position:fixed;inset:0;background:rgba(26,24,20,.28);z-index:50;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.on{opacity:1;pointer-events:auto}
+/* Footer */
+footer{border-top:3px solid var(--ink);margin-top:34px;padding:24px 0 40px;font-size:13px;color:#3A362E}
+footer .method{max-width:820px}
+footer .colophon{margin-top:16px;font-size:10.5px;color:var(--stone)}
+.src{font-size:10px;color:var(--stone);margin-top:10px}
+@media (max-width:720px){
+  .lane-label{width:64px;font-size:9px}
+  .card{width:100%}
+  .x-axis{padding-left:80px}
+  .x-caption{padding-left:64px}
+  .count{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="masthead-top">
+      <span class="mono">Innovation Commons &middot; Field Notes</span>
+      <span class="mono edition">The Funding Commons &middot; July 2026</span>
+    </div>
+    <h1>The Funding <em>Commons</em></h1>
+    <p class="standfirst">A first-cheque map of UK deep-tech and spinout funding. Grants, programmes and investors are plotted by technology readiness and entry ticket, and classified by the question that actually matters: is this money reachable from where you stand?</p>
+    <p class="lineage">The Funding Commons concept dates from the early 2010s. A first public version was built in 2017. This is a clean, independent rebuild for 2026.</p>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap controls-inner">
+    <span class="ctl-label mono">Region</span>
+    <div class="chips" id="regionChips" role="group" aria-label="Filter by region"></div>
+    <span class="ctl-label mono">Route</span>
+    <select id="routeSel" aria-label="Filter by route">
+      <option value="">All routes</option>
+      <option value="spinout">Academic spinout</option>
+      <option value="founder">Founder enterprise</option>
+    </select>
+    <select id="sectorSel" aria-label="Filter by sector">
+      <option value="">All sectors</option>
+      <option value="lifesci">Life sciences</option>
+      <option value="digital">Digital &amp; AI</option>
+      <option value="advmat">Advanced materials</option>
+      <option value="energy">Energy</option>
+      <option value="agrifood">Agri-food</option>
+      <option value="eng">Engineering</option>
+    </select>
+    <label class="toggle">
+      <input type="checkbox" id="realityToggle">
+      <span class="track" aria-hidden="true"><span class="knob"></span></span>
+      <span class="t-label mono">First-cheque reality</span>
+    </label>
+    <span class="count mono" id="countStrip"></span>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="strip" id="realityStrip" hidden>
+    The reality view dims sources that are rarely a first cheque: public co-investors that need a private lead, later-stage funds, and university-tethered vehicles without an evidenced first-round record. It is a lens, not a cut; dimmed cards are still there.
+  </div>
+  <div class="strip gap" id="gapStrip">
+    <strong>Structural gap.</strong> No dedicated regional first-cheque capital matches this filter. UK-wide sources still apply, but the region is relying on national money finding it. That gap is the finding.
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="grid-area">
+    <div class="y-axis mono">Entry ticket &uarr;</div>
+    <div class="lanes" id="lanes"></div>
+  </div>
+  <div class="x-axis mono"><span>TRL 1 &middot; concept</span><span>TRL 4&ndash;6 &middot; prototype</span><span>TRL 9 &middot; deployed</span></div>
+  <div class="x-caption mono">Within each lane, cards run left to right by TRL entry point</div>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-labelledby="pName" hidden>
+  <button class="p-close" id="pClose" aria-label="Close details">Close</button>
+  <div class="p-cls" id="pCls"></div>
+  <h2 id="pName"></h2>
+  <div class="p-fam" id="pFam"></div>
+  <dl class="p-facts" id="pFacts"></dl>
+  <p class="p-note" id="pNote"></p>
+  <a class="p-link" id="pLink" target="_blank" rel="noopener">Visit source &rarr;</a>
+</aside>
+
+<footer>
+  <div class="wrap">
+    <div class="method">
+      <strong>Method.</strong> Sources are classified by accessibility: open national, open regional, non-dilutive or programme, university-tethered, public co-investor, and later stage. Ticket bands and TRL ranges are indicative entry points, not underwriting rules; always check the live scheme. Cohort standing (front-runner, second-wave) reflects the author&rsquo;s own analysis of UK spinout deal activity, alongside published sources including the RAEng and Dealroom Spotlight on Spinouts 2026 and the Hickson review. Corrections are welcome: the map improves when practitioners argue with it.
+    </div>
+    <div class="colophon mono">The Funding Commons is an Innovation Commons product &middot; theinnovationcommons.com &middot; Built by builders</div>
+    <div class="src mono" id="dataSrc">Data: embedded edition</div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1uEIzjDZfymHwqFPrwG_jW1PRrqr8nWcZEgyKMKd_-yA/export?format=csv";
+const SEED = [{"name":"ICURe Explore","family":"Innovate UK","cls":"grant","type":"programme","stage":"pre","route":"spinout","signal":"","sectors":"","trl_min":"3","trl_max":"6","ticket_min_k":"0","ticket_max_k":"35","geo":"UK-wide","region":"uk","applicant":"Research team; an early-career researcher leads","status":"Open, rolling cohorts","deadline":"","note":"Market discovery for research teams: up to £35,000 for 12 weeks of structured customer discovery, 100+ conversations, options roadmap at the end. The standard pre-formation entry point and the feeder for everything downstream, including Venture Builder.","url":"https://iuk-business-connect.org.uk/programme/icure/"},{"name":"IUK Venture Builder","family":"Innovate UK · pilot","cls":"grant","type":"programme","stage":"post","route":"spinout","signal":"","sectors":"digital lifesci advmat","trl_min":"4","trl_max":"7","ticket_min_k":"0","ticket_max_k":"150","geo":"UK-wide","region":"uk","applicant":"Incorporated spinout, under 24 months old, less than £100k raised, with a TTO or ICURe delivery partner statement","status":"Pilot; first cohort starts October 2026","deadline":"2026 EOI closed 22 May; watch for future rounds","note":"Nine months of venture-building support plus up to £150,000 grant, aimed at closing the gap between validated customer discovery and first investment. Restricted to Frontier AI, Engineering Biology and Advanced Materials and Manufacturing, and to spinouts that completed ICURe Exploit or an equivalent validation programme.","url":"https://apply-for-innovation-funding.service.gov.uk/competition/2457/overview/343a1d9f-29cb-4184-96bc-565bcfd09462"},{"name":"UKRI Translation: Proof of Concept","family":"UKRI, all councils","cls":"grant","type":"grant","stage":"pre","route":"spinout","signal":"","sectors":"","trl_min":"2","trl_max":"5","ticket_min_k":"100","ticket_max_k":"250","geo":"UK-wide","region":"uk","applicant":"PI, via the institution and TTO. Not open to individuals or companies","status":"Annual","deadline":"2026 round closed 13 May; next expected spring 2027","note":"Discipline-agnostic PoC at 80% FEC, pre-licensing or pre-company. Massively oversubscribed with institutional caps, so the internal selection round matters as much as the external one. Talk to the TTO early.","url":"https://www.ukri.org/opportunity/ukri-translation-proof-of-concept/"},{"name":"Impact Acceleration Accounts","family":"UKRI, via institutions","cls":"grant","type":"grant","stage":"pre","route":"spinout","signal":"","sectors":"","trl_min":"1","trl_max":"4","ticket_min_k":"5","ticket_max_k":"50","geo":"UK-wide","region":"uk","applicant":"Via your institution's own allocation; ask the TTO","status":"Devolved to institutions","deadline":"","note":"Devolved block funding held by universities. The fastest small money in the system if your institution has an allocation; awards and rules vary by council and by TTO. Ask before you assume.","url":"https://www.ukri.org/what-we-do/commercialisation/"},{"name":"SBRI competitions","family":"Innovate UK / departments","cls":"grant","type":"loan","stage":"both","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"7","ticket_min_k":"50","ticket_max_k":"1000","geo":"UK-wide","region":"uk","applicant":"Company, as a development contract","status":"Rolling competitions","deadline":"","note":"Pre-commercial procurement, not a grant: 100% funded development contracts against a public-sector need, with no equity taken. Phase 1 feasibility then Phase 2 demonstrators. Strong for regulated and public-market propositions.","url":"https://www.gov.uk/government/collections/sbri-the-small-business-research-initiative"},{"name":"Innovation Loans","family":"Innovate UK","cls":"grant","type":"loan","stage":"post","route":"both","signal":"","sectors":"","trl_min":"6","trl_max":"8","ticket_min_k":"100","ticket_max_k":"2000","geo":"UK-wide","region":"uk","applicant":"Company (SME)","status":"Rolling competitions","deadline":"","note":"Late-stage innovation debt for SMEs with a credible route to revenue. Not first-cheque money, but a non-dilutive bridge between grant funding and equity for companies past the demonstrator stage.","url":"https://www.gov.uk/government/collections/innovation-loans"},{"name":"RAEng Enterprise Fellowships","family":"Royal Academy of Engineering","cls":"grant","type":"fellowship","stage":"pre","route":"both","signal":"","sectors":"eng digital advmat energy agrifood","trl_min":"3","trl_max":"6","ticket_min_k":"0","ticket_max_k":"75","geo":"UK-wide","region":"uk","applicant":"Founder-researcher applies direct","status":"Annual call","deadline":"Check current round","note":"Up to £75,000 equity-free plus a year of coaching, training and Academy mentoring for founder-researchers in engineering and tech. One of the few schemes that funds the person, not just the project.","url":"https://raeng.org.uk/programmes-and-prizes/programmes/uk-grants-and-prizes/support-for-entrepreneurs/enterprise-fellowships"},{"name":"Converge","family":"Scottish HEIs","cls":"grant","type":"fellowship","stage":"pre","route":"both","signal":"","sectors":"","trl_min":"2","trl_max":"5","ticket_min_k":"10","ticket_max_k":"75","geo":"Scotland, all universities and research institutes","region":"sco","applicant":"Researcher or student applies direct, Scottish HEI","status":"Annual programme","deadline":"Opens each spring","note":"Scotland's pre-formation pipeline: training, mentoring and equity-free cash awards across several challenge tracks. For a Scottish researcher at proof-of-concept stage this is usually the first door, before any fund will look.","url":"https://convergechallenge.com/"},{"name":"High Growth Spinout Programme","family":"Scottish Enterprise","cls":"grant","type":"grant","stage":"pre","route":"spinout","signal":"","sectors":"","trl_min":"3","trl_max":"6","ticket_min_k":"50","ticket_max_k":"600","geo":"Scotland","region":"sco","applicant":"Project via the university, with Scottish Enterprise","status":"Open, staged","deadline":"","note":"Staged pre-formation funding that builds Scottish university projects into investable spinouts, from appraisal through to launch. Substantial money at a stage where almost nothing else exists; runs through the institution, not the founder.","url":"https://www.scottish-enterprise.com/"},{"name":"Invest NI innovation & PoC support","family":"Invest Northern Ireland","cls":"grant","type":"grant","stage":"both","route":"both","signal":"","sectors":"","trl_min":"2","trl_max":"5","ticket_min_k":"5","ticket_max_k":"100","geo":"Northern Ireland","region":"ni","applicant":"Company or researcher, scheme-dependent","status":"Verify current calls","deadline":"","note":"The successor territory to the old Invest NI / QUB proof-of-concept support from the 2017 map. Schemes churn; the constant is that Invest NI holds early innovation money for NI propositions. Check what is live before planning around it.","url":"https://www.investni.com/"},{"name":"Conception X","family":"Conception X","cls":"grant","type":"programme","stage":"pre","route":"founder","signal":"","sectors":"","trl_min":"2","trl_max":"5","ticket_min_k":"","ticket_max_k":"","geo":"UK-wide","region":"uk","applicant":"PhD researcher applies direct","status":"Annual cohorts","deadline":"Check current cohort","note":"Venture programme for PhD researchers building deep-tech companies alongside the doctorate. A programme rather than a cheque, but for a pre-formation researcher outside ICURe's rhythm it is one of the few national on-ramps.","url":"https://www.conceptionx.org/"},{"name":"Parkwalk (IP Group family)","family":"IP Group plc","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"front","sectors":"","trl_min":"4","trl_max":"7","ticket_min_k":"250","ticket_max_k":"2000","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"The largest EIS investor in UK spinouts and the dominant fund family nationally once consolidated with IP Group. Deployment rhythm is tied to the tax year, so timing your raise against EIS inflows matters. Relationship held at platform level. Consistently among the most active first-round investors in the cohort evidence.","url":"https://parkwalkadvisors.com/"},{"name":"SFC Capital","family":"SFC Capital","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"front","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"100","ticket_max_k":"300","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"High-volume SEIS/EIS first cheques, sector-agnostic. One of the very few genuinely open national entry points at the £100k to £300k band. Like Parkwalk, deployment follows the tax-year rhythm of retail EIS money. The most active name by volume in the cohort evidence, much of it at first round.","url":"https://sfccapital.com/"},{"name":"IQ Capital","family":"IQ Capital","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"front","sectors":"digital advmat eng energy","trl_min":"4","trl_max":"7","ticket_min_k":"500","ticket_max_k":"5000","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"Deep-tech specialist seed investor with genuine technical diligence capacity. Cambridge-rooted but national in mandate. Leads rounds and follows on, which matters more than the first cheque itself.","url":"https://iqcapital.vc/"},{"name":"Mercia Ventures","family":"Mercia Asset Management","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"4","trl_max":"7","ticket_min_k":"250","ticket_max_k":"2000","geo":"UK-wide, regional funds","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"National platform running multiple regional mandates alongside EIS and venture funds. Often the practical first institutional cheque outside the Golden Triangle because a regional fund gives them a reason to look.","url":"https://www.mercia.co.uk/"},{"name":"UKI2S (Future Planet family)","family":"Future Planet Capital","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"3","trl_max":"6","ticket_min_k":"150","ticket_max_k":"750","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"The UK Innovation & Science Seed Fund: public-backed, patient, and built for exactly the science-heavy, pre-revenue companies this cohort produces. Future Planet's first-cheque vehicle; rank the vehicle on its own merits. The platform shows sustained early-stage deployment in the recent evidence.","url":"https://ukinnovationscienceseedfund.co.uk/"},{"name":"Foresight Group","family":"Foresight Group","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"4","trl_max":"7","ticket_min_k":"250","ticket_max_k":"2000","geo":"UK-wide, regional funds","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"Listed manager running regional venture funds across the UK alongside national vehicles. Similar logic to Mercia: the regional mandate is the door, the platform is the relationship.","url":"https://www.foresight.group/"},{"name":"AlbionVC","family":"Albion Capital","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"","sectors":"digital lifesci","trl_min":"4","trl_max":"7","ticket_min_k":"500","ticket_max_k":"5000","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"Seed and Series A investor in B2B software and healthcare with genuine spinout experience: also manages the UCL Technology Fund, so knows the university cap table cold. Open mandate distinct from the captive UCLTF vehicle.","url":"https://www.albion.vc/"},{"name":"Amadeus Capital Partners","family":"Amadeus Capital","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"7","ticket_min_k":"500","ticket_max_k":"5000","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"Long-standing deep-tech investor from seed to growth. Selective at first cheque, but one of the few national names with the technical bench to price hard science early.","url":"https://www.amadeuscapital.com/"},{"name":"Creator Fund","family":"Creator Fund","cls":"open-national","type":"equity","stage":"post","route":"founder","signal":"","sectors":"","trl_min":"3","trl_max":"6","ticket_min_k":"100","ticket_max_k":"500","geo":"UK-wide, campus network","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"Student and academic founder fund investing on campuses nationally. Caveat from the cohort analysis: actively disfavours university equity on the cap table, so treat it as an academic-founder route, not a clean route for equity-bearing licensed-IP spinouts.","url":"https://www.thecreatorfund.com/"},{"name":"Ascension","family":"Ascension","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"7","ticket_min_k":"150","ticket_max_k":"1000","geo":"UK-wide, London & South East weighted","region":"uk seng","applicant":"Company","status":"Open","deadline":"","note":"Pre-seed and seed EIS investor with real deal volume, weighted to London and the South East. For a South East founder outside Oxbridge's fences, one of the few early names with a regional centre of gravity.","url":"https://www.ascension.vc/"},{"name":"Equity Gap","family":"Equity Gap","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"front","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"50","ticket_max_k":"400","geo":"Scotland","region":"sco","applicant":"Company","status":"Open","deadline":"","note":"Edinburgh-based angel syndicate and a front-runner in the cohort evidence, writing consistent early tickets into Scottish science and technology companies. Pairs naturally with Scottish Enterprise co-investment matching.","url":"https://www.equitygap.co.uk/"},{"name":"Pioneer Group","family":"Pioneer Group","cls":"open-national","type":"programme","stage":"both","route":"spinout","signal":"front","sectors":"","trl_min":"3","trl_max":"6","ticket_min_k":"","ticket_max_k":"","geo":"UK-wide, lab campuses","region":"uk","applicant":"Founding team or spinout","status":"Open","deadline":"","note":"Commercial venture builder running labs, formation programmes and associated funds across UK science campuses. A route into venture-building support and infrastructure rather than a cold-pitch cheque; also an Innovate UK delivery partner.","url":"https://pioneergroup.com/"},{"name":"Deepbridge Capital","family":"Deepbridge","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"second","sectors":"lifesci digital","trl_min":"4","trl_max":"7","ticket_min_k":"250","ticket_max_k":"1500","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"EIS manager with a dedicated life sciences thesis alongside its technology book, and genuine early deal flow into therapeutics, medtech and diagnostics. One of the few EIS routes that is not a generalist.","url":"https://www.deepbridgecapital.com/"},{"name":"Oxford Innovation Finance","family":"Oxford Innovation","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"100","ticket_max_k":"750","geo":"Oxford-centred angel network, invests more widely","region":"seng","applicant":"Company","status":"Open","deadline":"","note":"Runs the Oxford Investment Opportunity Network, bridging angel capital into university-adjacent deals. Angel-network economics apply: slower to assemble than a fund cheque, but willing to price earlier risk.","url":"https://www.oxin.co.uk/"},{"name":"QantX","family":"QantX","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"250","ticket_max_k":"2000","geo":"South West England","region":"seng","applicant":"Company","status":"Open","deadline":"","note":"South West deep-tech investor anchoring the region's spinout lane alongside the Bristol ecosystem. Named in the cohort analysis as part of the South West route with Science Creates.","url":"https://qantx.com/"},{"name":"Bristol Private Equity Club","family":"BPEC","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"4","trl_max":"8","ticket_min_k":"50","ticket_max_k":"500","geo":"Bristol & South West","region":"seng","applicant":"Company","status":"Open","deadline":"","note":"Angel club syndicating members into local deals. The cohort evidence base here is thinner than for the funds around it, so treat as a supplementary route alongside Science Creates and QantX.","url":"https://bristolpec.co.uk/"},{"name":"SyndicateRoom (Access EIS)","family":"SyndicateRoom","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"8","ticket_min_k":"50","ticket_max_k":"300","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"Access EIS co-invests automatically alongside a tracked panel of high-performing angels, so the route in is convincing an angel on the panel. A volume source of small first cheques; it was on the original 2017 map and still earns its place.","url":"https://www.syndicateroom.com/"},{"name":"Sapphire Capital Partners","family":"Sapphire","cls":"open-national","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"100","ticket_max_k":"500","geo":"UK-wide, Belfast-based","region":"uk ni","applicant":"Company","status":"Open","deadline":"","note":"Belfast-based EIS and SEIS fund manager running several branded funds. One of the strongest first-round tendencies in the cohort evidence, on a small sample: exactly the behaviour a first-cheque map exists to surface.","url":"https://sapphirecapitalpartners.co.uk/"},{"name":"Techstart Ventures","family":"Techstart","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"front","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"50","ticket_max_k":"250","geo":"Northern Ireland & Scotland","region":"ni sco","applicant":"Company","status":"Open","deadline":"","note":"The default pre-seed first cheque in Northern Ireland and a serious one in Scotland. Concept-stage tickets through to pre-seed rounds, with follow-on capacity. For an NI founder this is usually the first door.","url":"https://www.techstart.vc/"},{"name":"Clarendon Fund Managers","family":"Clarendon","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"4","trl_max":"8","ticket_min_k":"150","ticket_max_k":"1000","geo":"Northern Ireland","region":"ni","applicant":"Company, with a syndicate assembled","status":"Open","deadline":"","note":"Manages Co-Fund NI, investing alongside angel syndicates and other funds rather than leading alone. The mechanism rewards founders who have already assembled a syndicate; a key NI relationship.","url":"https://www.clarendon-fm.co.uk/"},{"name":"Halo Business Angel Network","family":"Catalyst","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"8","ticket_min_k":"50","ticket_max_k":"250","geo":"Northern Ireland","region":"ni","applicant":"Company","status":"Open","deadline":"","note":"NI's angel network, run from Catalyst. Angel money is slower to assemble than a fund cheque but often prices earlier risk, and pairs naturally with Co-Fund NI matching.","url":"https://www.catalyst-ni.org/"},{"name":"Northern Powerhouse Investment Fund II","family":"British Business Bank, via appointed managers","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"8","ticket_min_k":"100","ticket_max_k":"5000","geo":"North of England","region":"neng","applicant":"Company, via the regional fund manager","status":"Open","deadline":"","note":"£660m BBB programme delivered through appointed managers: North West equity through Praetura, Yorkshire through Mercia, North East through Maven, alongside smaller loans, with equity available up to £5m. Founder-facing it is real first-cheque money; the door is the regional manager, not the Bank.","url":"https://www.npif.co.uk/"},{"name":"Northern Accelerator","family":"North East universities","cls":"grant","type":"programme","stage":"pre","route":"spinout","signal":"","sectors":"","trl_min":"2","trl_max":"5","ticket_min_k":"10","ticket_max_k":"100","geo":"North East England universities","region":"neng","applicant":"Researcher, via a partner university","status":"Open","deadline":"","note":"Collaboration of North East universities running pre-formation spinout support: proof-of-concept funding, Executives into Business founder matching, and a seed route into Northstar. A working regional preview of what Venture Builder systematises nationally.","url":"https://www.northernaccelerator.org/"},{"name":"DSW Ventures","family":"DSW","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"250","ticket_max_k":"1000","geo":"North of England focus","region":"neng","applicant":"Company","status":"Open","deadline":"","note":"Independent seed fund with a Northern centre of gravity, writing first institutional cheques across the North West and beyond. Bands indicative.","url":"https://dswventures.co.uk/"},{"name":"Northern Gritstone","family":"Northern Gritstone","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"4","trl_max":"7","ticket_min_k":"500","ticket_max_k":"5000","geo":"North of England","region":"neng","applicant":"Company","status":"Open","deadline":"","note":"University-anchored but open across the North, with the Northern Arc extending reach. One of the largest pools of genuinely reachable first-institutional capital outside the Golden Triangle.","url":"https://www.northern-gritstone.com/"},{"name":"PXN Ventures (PraeSeed)","family":"Praetura × Par Equity","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"150","ticket_max_k":"2000","geo":"North of England & Scotland","region":"neng sco","applicant":"Company","status":"Open","deadline":"","note":"The merged Praetura and Par Equity platform. PraeSeed runs a cohort-based pre-seed programme that has already taken ICURe alumni; treat the platform as one relationship, per the fund-family rule.","url":"https://praetura.co.uk/"},{"name":"North East Spinout Inspire Fund","family":"Northstar Ventures","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"front","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"100","ticket_max_k":"500","geo":"North East England","region":"neng","applicant":"Company","status":"Open, launched June 2026","deadline":"","note":"£22.5m dedicated spinout fund targeting 30+ companies in five years, already deploying and leveraging significant co-investment. The clearest recent example of the regional anchor-capital model working. Northstar sits near the top of the cohort evidence by deal volume.","url":"https://www.northstarventures.co.uk/"},{"name":"LYVA Labs","family":"LYVA Labs","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"second","sectors":"","trl_min":"3","trl_max":"6","ticket_min_k":"50","ticket_max_k":"250","geo":"Liverpool City Region","region":"neng","applicant":"Company","status":"Open","deadline":"","note":"Liverpool City Region's innovation investor, writing genuine first cheques at the smallest institutional band. Small tickets, but at a stage where almost nobody else shows up.","url":"https://lyvalabs.com/"},{"name":"Development Bank of Wales","family":"DBW","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"8","ticket_min_k":"50","ticket_max_k":"2000","geo":"Wales","region":"wal","applicant":"Company","status":"Open","deadline":"","note":"Wales's public development bank, running equity and debt from micro tickets to scale-up. For a Welsh spinout it is both the first cheque and the patient follow-on.","url":"https://developmentbank.wales/"},{"name":"Angels Invest Wales","family":"Development Bank of Wales","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"8","ticket_min_k":"25","ticket_max_k":"250","geo":"Wales","region":"wal","applicant":"Company","status":"Open","deadline":"","note":"DBW's angel network, syndicating private investors with co-investment from the bank's own funds. In practice often the actual first cheque in Wales, ahead of the institutional round.","url":"https://angelsinvest.wales/"},{"name":"Science Creates Ventures","family":"Science Creates","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"","sectors":"lifesci advmat eng","trl_min":"3","trl_max":"6","ticket_min_k":"250","ticket_max_k":"1000","geo":"Bristol & South West","region":"seng","applicant":"Company","status":"Open","deadline":"","note":"Deep-tech ecosystem builder with incubation plus venture funds (treat SCVC and Fund II as one platform). Bristol-anchored with pull across the South West.","url":"https://sciencecreates.co.uk/"},{"name":"Midlands Mindforge","family":"Midlands universities","cls":"open-regional","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"7","ticket_min_k":"250","ticket_max_k":"1000","geo":"Midlands","region":"mid","applicant":"Company","status":"Open","deadline":"","note":"Investment company formed by eight Midlands universities to back their spinouts, now deploying. Regional analogue to Northern Gritstone at an earlier stage of its life.","url":"https://www.midlandsmindforge.com/"},{"name":"Oxford Science Enterprises","family":"OSE","cls":"captive","type":"equity","stage":"post","route":"spinout","signal":"","sectors":"","trl_min":"3","trl_max":"8","ticket_min_k":"500","ticket_max_k":"10000","geo":"Oxford spinouts only","region":"seng","applicant":"Company (Oxford spinouts only)","status":"Open, by mandate","deadline":"","note":"First nationally by value invested in spinouts since 2020, second by count, and unreachable unless you are an Oxford spinout. Its scale is the clearest illustration of structural capital concentration: the money exists, the fence is the point.","url":"https://www.oxfordscienceenterprises.com/"},{"name":"Cambridge Enterprise Ventures","family":"University of Cambridge","cls":"captive","type":"equity","stage":"post","route":"spinout","signal":"","sectors":"","trl_min":"3","trl_max":"8","ticket_min_k":"100","ticket_max_k":"2000","geo":"Cambridge spinouts only","region":"seng","applicant":"Company (Cambridge spinouts only)","status":"Open, by mandate","deadline":"","note":"The university's own venture arm, investing from pre-seed in Cambridge-originated companies. Same structural logic as OSE at smaller scale.","url":"https://www.enterprise.cam.ac.uk/"},{"name":"UCL Technology Fund","family":"Managed by AlbionVC","cls":"captive","type":"equity","stage":"post","route":"spinout","signal":"","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"100","ticket_max_k":"2000","geo":"UCL spinouts only","region":"seng","applicant":"Company (UCL spinouts only)","status":"Open, by mandate","deadline":"","note":"Captive to UCL-originated IP, run by AlbionVC. If you are not a UCL spinout, the reachable route into the same team is Albion's open funds.","url":"https://www.ucltf.co.uk/"},{"name":"University Enterprise Funds (Parkwalk)","family":"Parkwalk Advisors","cls":"captive","type":"equity","stage":"post","route":"spinout","signal":"","sectors":"","trl_min":"3","trl_max":"7","ticket_min_k":"100","ticket_max_k":"1000","geo":"Host university spinouts only (Cambridge, Bristol, Imperial)","region":"seng","applicant":"Company (host university spinouts)","status":"Open, by mandate","deadline":"","note":"EIS funds raised for a named university and managed by Parkwalk: the University of Cambridge Enterprise Funds and equivalents for Bristol and Imperial. Tethered vehicles inside an open platform, which is exactly why the fund-family rule matters: the relationship is held at Parkwalk level.","url":"https://parkwalkadvisors.com/"},{"name":"Old College Capital","family":"University of Edinburgh","cls":"captive","type":"equity","stage":"post","route":"spinout","signal":"","sectors":"","trl_min":"3","trl_max":"8","ticket_min_k":"50","ticket_max_k":"1000","geo":"Edinburgh spinouts only","region":"sco","applicant":"Company (Edinburgh spinouts only)","status":"Open, by mandate","deadline":"","note":"Edinburgh's in-house venture fund, investing in the university's own spinouts and startups. Included so the captive layer reads as a national pattern, not a Golden Triangle quirk.","url":"https://edinburgh-innovations.ed.ac.uk/"},{"name":"QUBIS","family":"Queen's University Belfast","cls":"captive","type":"equity","stage":"both","route":"spinout","signal":"front","sectors":"","trl_min":"2","trl_max":"7","ticket_min_k":"10","ticket_max_k":"250","geo":"Queen's spinouts only","region":"ni","applicant":"Researcher or spinout, Queen's only","status":"Open, by mandate","deadline":"","note":"Queen's commercialisation company: forms and backs the university's own spinouts from proof of concept onwards. For a Queen's founder this is usually the literal first cheque on the cap table and the formation partner, before any external fund will look. One of the most consistent first-round records in the cohort evidence.","url":"https://www.qubis.co.uk/"},{"name":"British Business Bank","family":"BBB","cls":"public","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"6","trl_max":"9","ticket_min_k":"","ticket_max_k":"","geo":"UK-wide","region":"uk","applicant":"Funds, not founders","status":"Via funds and programmes","deadline":"","note":"Invests into funds and alongside them (ECF, RAF, Nations and Regions), not as a discretionary first cheque. Matters to founders indirectly: it decides which regional funds exist at all.","url":"https://www.british-business-bank.co.uk/"},{"name":"Scottish Enterprise","family":"Growth Investments","cls":"public","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"4","trl_max":"8","ticket_min_k":"50","ticket_max_k":"2000","geo":"Scotland","region":"sco","applicant":"Company, with a private lead investor","status":"Open, co-investment","deadline":"","note":"Scotland's public co-investor: matches private leads rather than originating. Bring a lead investor and it multiplies the round; arrive alone and there is nothing to match.","url":"https://www.scottish-enterprise.com/"},{"name":"BGF","family":"BGF","cls":"wrong-stage","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"7","trl_max":"9","ticket_min_k":"2000","ticket_max_k":"15000","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"In the national top tier by presence, but growth equity by appetite. A destination for the cohort's fifth round, not its first. Included so the map is honest about what the headline rankings count.","url":"https://www.bgf.co.uk/"},{"name":"Octopus Ventures","family":"Octopus Group","cls":"wrong-stage","type":"equity","stage":"post","route":"both","signal":"","sectors":"","trl_min":"7","trl_max":"9","ticket_min_k":"1000","ticket_max_k":"10000","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"Large multi-stage investor that leans Series A and beyond for deep tech. Worth knowing early for the later relationship; rarely the first cheque.","url":"https://octopusventures.com/"},{"name":"Crowdcube","family":"Crowdcube","cls":"open-national","type":"crowd","stage":"post","route":"both","signal":"","sectors":"","trl_min":"5","trl_max":"9","ticket_min_k":"150","ticket_max_k":"2000","geo":"UK-wide","region":"uk","applicant":"Company","status":"Open","deadline":"","note":"Equity crowdfunding works when the proposition is legible to a retail crowd, which most deep tech is not. Occasionally powerful for consumer-adjacent science; plan the raise like a marketing campaign because it is one.","url":"https://www.crowdcube.com/"}];
+
+const CLS = {
+  "open-national": "Open national",
+  "open-regional": "Open regional",
+  "grant": "Non-dilutive / programme",
+  "captive": "University-tethered",
+  "public": "Public co-investor",
+  "wrong-stage": "Later stage"
+};
+const REGIONS = [["","All UK"],["ni","NI"],["sco","Scotland"],["wal","Wales"],["neng","N England"],["mid","Midlands"],["seng","S England"]];
+const LANES = [
+  {id:"l6",label:"&pound;1m+",test:m=>m>=1000},
+  {id:"l5",label:"&pound;500k&ndash;&pound;1m",test:m=>m>=500},
+  {id:"l4",label:"&pound;250k&ndash;&pound;500k",test:m=>m>=250},
+  {id:"l3",label:"&pound;100k&ndash;&pound;250k",test:m=>m>=100},
+  {id:"l2",label:"&pound;50k&ndash;&pound;100k",test:m=>m>=50},
+  {id:"l1",label:"Under &pound;50k",test:m=>m>=0},
+  {id:"l0",label:"Programme / no set cheque",test:m=>false}
+];
+
+let data = SEED.slice();
+let state = {region:"", route:"", sector:"", reality:false};
+
+function laneOf(r){
+  const min = r.ticket_min_k === "" ? null : Number(r.ticket_min_k);
+  if(min === null || isNaN(min)) return "l0";
+  for(const L of LANES){ if(L.id!=="l0" && L.test(min)) return L.id; }
+  return "l1";
+}
+function fmtTicket(r){
+  const a=r.ticket_min_k, b=r.ticket_max_k;
+  if(a===""&&b==="") return "Programme";
+  const f=v=>{v=Number(v);return v>=1000?("\u00A3"+(v/1000)+"m"):("\u00A3"+v+"k")};
+  if(a!==""&&b!=="") return f(a)+"\u2013"+f(b);
+  return a!==""?("From "+f(a)):("Up to "+f(b));
+}
+function matches(r){
+  if(state.region){
+    const rg=(r.region||"").split(/\s+/);
+    if(!(rg.includes(state.region)||rg.includes("uk"))) return false;
+  }
+  if(state.route && !(r.route==="both"||r.route===state.route)) return false;
+  if(state.sector){
+    const s=(r.sectors||"").trim();
+    if(s && !s.split(/\s+/).includes(state.sector)) return false;
+  }
+  return true;
+}
+function dimmed(r){
+  if(!state.reality) return false;
+  if(r.cls==="public"||r.cls==="wrong-stage") return true;
+  if(r.cls==="captive" && !r.signal) return true;
+  return false;
+}
+function render(){
+  const lanesEl=document.getElementById("lanes");
+  lanesEl.innerHTML="";
+  const vis=data.filter(matches);
+  let shown=0, dimCount=0;
+  for(const L of LANES){
+    const cards=vis.filter(r=>laneOf(r)===L.id)
+      .sort((a,b)=>(Number(a.trl_min)||0)-(Number(b.trl_min)||0)||a.name.localeCompare(b.name));
+    if(!cards.length) continue;
+    const lane=document.createElement("div"); lane.className="lane";
+    lane.innerHTML='<div class="lane-label">'+L.label+'</div>';
+    const cwrap=document.createElement("div"); cwrap.className="lane-cards";
+    for(const r of cards){
+      const d=dimmed(r);
+      const b=document.createElement("button");
+      b.className="card c-"+r.cls+(d?" dim":"");
+      b.setAttribute("type","button");
+      b.innerHTML='<div class="nm">'+esc(r.name)+'</div>'
+        +'<div class="meta"><span>TRL '+esc(r.trl_min)+'\u2013'+esc(r.trl_max)+'</span><span>'+fmtTicket(r)+'</span></div>'
+        +(r.signal?'<div class="sig '+esc(r.signal)+'">'+(r.signal==="front"?"Front-runner":"Second-wave")+'</div>':'');
+      b.addEventListener("click",()=>openPanel(r));
+      cwrap.appendChild(b);
+      shown++; if(d) dimCount++;
+    }
+    lane.appendChild(cwrap); lanesEl.appendChild(lane);
+  }
+  document.getElementById("countStrip").textContent =
+    shown+" of "+data.length+" sources"+(state.reality?(" \u00B7 "+dimCount+" dimmed"):"");
+  // structural gap: region chosen, no dedicated regional capital in that region
+  const gap = state.region && !vis.some(r=>r.cls==="open-regional" && (r.region||"").split(/\s+/).includes(state.region));
+  document.getElementById("gapStrip").classList.toggle("show", !!gap);
+  document.getElementById("realityStrip").hidden = !state.reality;
+}
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+/* Panel */
+const panel=document.getElementById("panel"), scrim=document.getElementById("scrim");
+let lastFocus=null;
+function openPanel(r){
+  lastFocus=document.activeElement;
+  document.getElementById("pCls").textContent=CLS[r.cls]||r.cls;
+  document.getElementById("pCls").style.color = getComputedStyle(document.documentElement).getPropertyValue(
+    {"open-national":"--oxide","open-regional":"--gold","grant":"--moss","captive":"--slate"}[r.cls]||"--stone");
+  document.getElementById("pName").textContent=r.name;
+  document.getElementById("pFam").textContent=r.family;
+  const facts=[["Stage","TRL "+r.trl_min+"\u2013"+r.trl_max+(r.stage==="pre"?" \u00B7 pre-formation":r.stage==="post"?" \u00B7 post-formation":"")],
+    ["Ticket",fmtTicket(r)],["Geography",r.geo],["Applicant",r.applicant],["Status",r.status],
+    ["Deadline",r.deadline],["Route",r.route==="both"?"Spinout or founder":r.route==="spinout"?"Academic spinout":"Founder enterprise"],
+    ["Standing",r.signal==="front"?"Front-runner (cohort evidence)":r.signal==="second"?"Second-wave (cohort evidence)":""]];
+  document.getElementById("pFacts").innerHTML=facts.filter(f=>f[1])
+    .map(f=>'<div class="p-row"><dt>'+f[0]+'</dt><dd>'+esc(f[1])+'</dd></div>').join("");
+  document.getElementById("pNote").textContent=r.note;
+  const a=document.getElementById("pLink"); a.href=r.url; a.hidden=!r.url;
+  panel.hidden=false; requestAnimationFrame(()=>{panel.classList.add("open");scrim.classList.add("on");});
+  document.getElementById("pClose").focus();
+}
+function closePanel(){
+  panel.classList.remove("open");scrim.classList.remove("on");
+  setTimeout(()=>{panel.hidden=true;},200);
+  if(lastFocus) lastFocus.focus();
+}
+document.getElementById("pClose").addEventListener("click",closePanel);
+scrim.addEventListener("click",closePanel);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!panel.hidden)closePanel();});
+/* Controls */
+const chipsEl=document.getElementById("regionChips");
+for(const [val,label] of REGIONS){
+  const c=document.createElement("button");
+  c.className="chip"; c.type="button"; c.textContent=label;
+  c.setAttribute("aria-pressed",val===state.region?"true":"false");
+  c.addEventListener("click",()=>{
+    state.region=val;
+    chipsEl.querySelectorAll(".chip").forEach((el,i)=>el.setAttribute("aria-pressed",REGIONS[i][0]===val?"true":"false"));
+    render();
+  });
+  chipsEl.appendChild(c);
+}
+document.getElementById("routeSel").addEventListener("change",e=>{state.route=e.target.value;render();});
+document.getElementById("sectorSel").addEventListener("change",e=>{state.sector=e.target.value;render();});
+document.getElementById("realityToggle").addEventListener("change",e=>{state.reality=e.target.checked;render();});
+/* Legend */
+document.getElementById("legend").innerHTML=Object.entries(CLS)
+  .map(([k,v])=>'<span class="key mono"><span class="swatch sw-'+k+'"></span>'+v+'</span>').join("");
+/* Live data */
+function parseCSV(text){
+  const rows=[]; let row=[], field="", q=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(q){ if(ch==='"'){ if(text[i+1]==='"'){field+='"';i++;} else q=false; } else field+=ch; }
+    else if(ch==='"') q=true;
+    else if(ch===","){row.push(field);field="";}
+    else if(ch==="\n"||ch==="\r"){ if(ch==="\r"&&text[i+1]==="\n")i++; row.push(field);field=""; if(row.length>1||row[0]!=="")rows.push(row); row=[]; }
+    else field+=ch;
+  }
+  if(field!==""||row.length){row.push(field);rows.push(row);}
+  const head=rows.shift();
+  return rows.map(r=>Object.fromEntries(head.map((h,i)=>[h.trim(),(r[i]??"").trim()])));
+}
+render();
+try{
+  fetch(SHEET_CSV_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.text();}).then(t=>{
+    const live=parseCSV(t);
+    if(live.length>=40 && live[0].name){ data=live; render();
+      document.getElementById("dataSrc").textContent="Data: live sheet, "+live.length+" sources"; }
+  }).catch(()=>{ document.getElementById("dataSrc").textContent="Data: embedded edition, "+SEED.length+" sources"; });
+}catch(e){ document.getElementById("dataSrc").textContent="Data: embedded edition, "+SEED.length+" sources"; }
+</script>
+</body>
+</html>
