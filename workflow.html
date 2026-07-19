@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The commercialisation workflow. Tell us where it's wrong. | Innovation Commons</title>
+<meta name="description" content="Before assessing AI and digital tools for research commercialisation, the workflow has to be right. Mark what is missing, where work stalls, and what your team already uses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,900;1,9..144,500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120"><path d="M21 5 L79 5 L66 115 L34 115 Z" fill="%23C89944"/></svg>'>
+<style>
+:root{--paper:#F4EFE6;--ink:#1A1814;--oxide:#B13B1F;--gold:#C89944;--moss:#5B6B4A;--stone:#8A8375;--line:#D9D2C4}
+*{box-sizing:border-box;margin:0;padding:0}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:"Inter Tight",system-ui,sans-serif;font-size:16.5px;line-height:1.6}
+.mono{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.12em}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px}
+a{color:var(--oxide)}
+header{border-bottom:3px solid var(--ink);padding:22px 0}
+.mast{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11px}
+.mast a{color:var(--ink);text-decoration:none}
+.mast .ed{color:var(--oxide)}
+h1{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(32px,5.5vw,52px);letter-spacing:-.02em;line-height:1.08;margin:34px 0 16px}
+h1 em{font-style:italic;font-weight:500;color:var(--oxide)}
+.stand{font-size:17.5px;max-width:62ch;color:#3A362E}
+.declare{border-left:4px solid var(--moss);background:#EDEBE0;padding:12px 16px;margin:24px 0;font-size:14px;max-width:70ch}
+.return{border:2px solid var(--ink);padding:16px 18px;margin:30px 0;font-size:15px}
+.return .mono{font-size:10.5px;color:var(--oxide);display:block;margin-bottom:6px}
+h2{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(24px,3.4vw,32px);margin:44px 0 6px}
+.sub{color:var(--stone);font-size:14px;margin-bottom:18px}
+/* Stages */
+details.stage{border:1px solid var(--line);background:#FFFFFF;margin-bottom:10px;border-left:4px solid var(--ink)}
+details.stage[open]{border-left-color:var(--gold)}
+summary{cursor:pointer;padding:14px 16px;display:flex;gap:14px;align-items:baseline;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary .num{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:13px;color:var(--oxide);flex:none}
+summary .t{font-weight:600;font-size:16px}
+summary .one{display:block;font-weight:400;font-size:14px;color:#3A362E;margin-top:3px}
+.stage-body{padding:4px 16px 16px 16px;border-top:1px dashed var(--line)}
+.jam{font-size:14.5px;margin:12px 0 10px}
+.jam strong{color:var(--oxide)}
+.q{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--stone);display:block;margin:12px 0 6px}
+.rate{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.rate label{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--ink);padding:6px 10px;cursor:pointer;border-radius:2px;user-select:none}
+.rate input{position:absolute;opacity:0;width:0;height:0}
+.rate input:checked + span{background:var(--ink);color:var(--paper);margin:-6px -10px;padding:6px 10px;display:inline-block;border-radius:1px}
+textarea,input[type=text]{width:100%;border:1px solid var(--line);background:var(--paper);padding:9px 10px;font:inherit;font-size:14.5px;border-radius:2px}
+textarea{min-height:64px;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--oxide);outline-offset:1px}
+/* Branch */
+.branch{border:1px dashed var(--ink);padding:14px 16px;margin:14px 0;background:#F3E9D8}
+.branch .mono{font-size:10.5px;color:var(--ink);display:block;margin-bottom:8px}
+.branch ul{list-style:none}
+.branch li{padding:4px 0 4px 18px;position:relative;font-size:14.5px}
+.branch li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:10px;background:var(--gold);clip-path:polygon(15% 0,85% 0,70% 100%,30% 100%)}
+/* Asks */
+.asks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:20px 0 8px}
+.ask{border:1px solid var(--line);border-top:4px solid var(--oxide);background:#fff;padding:16px}
+.ask .mono{font-size:10px;color:var(--oxide);display:block;margin-bottom:8px}
+.ask h3{font-family:"Fraunces",serif;font-weight:900;font-size:19px;margin-bottom:8px}
+.ask p{font-size:14px;color:#3A362E}
+.ask a.btn{display:inline-block;margin-top:12px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:10px 14px;background:var(--ink);color:var(--paper);border-radius:2px}
+.ask a.btn:hover{background:var(--oxide)}
+.send{margin:26px 0 8px}
+button.send-btn{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:var(--oxide);color:var(--paper);border:none;padding:14px 22px;cursor:pointer;border-radius:2px}
+button.send-btn:hover{background:var(--ink)}
+.smallnote{font-size:13px;color:var(--stone);margin-top:8px;max-width:64ch}
+footer{border-top:3px solid var(--ink);margin-top:46px;padding:22px 0 40px;font-size:12.5px;color:var(--stone)}
+.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sig{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+</style>
+<link rel="canonical" href="https://theinnovationcommons.com/workflow.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Innovation Commons">
+<meta property="og:title" content="The commercialisation workflow. Tell us where it's wrong.">
+<meta property="og:description" content="Seven stages from opportunity capture to first external commitment, published for correction by the people who live it. An Innovation Commons open consultation.">
+<meta property="og:url" content="https://theinnovationcommons.com/workflow.html">
+<meta property="og:image" content="https://theinnovationcommons.com/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The commercialisation workflow. Tell us where it's wrong.">
+<meta name="twitter:description" content="Seven stages from opportunity capture to first external commitment, published for correction by the people who live it. An Innovation Commons open consultation.">
+<meta name="twitter:image" content="https://theinnovationcommons.com/og-card.png">
+</head>
+<body>
+<header>
+  <div class="wrap mast mono">
+    <a href="/">Innovation Commons &middot; Field Notes</a>
+    <span class="ed">Open consultation &middot; July 2026</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>The commercialisation workflow. <em>Tell us where it's wrong.</em></h1>
+  <p class="stand">Before we assess AI and digital tools for research commercialisation, the workflow has to be right. Below is a working map of how research becomes value, drawn from practice, not theory. Mark what is missing, where work stalls, and what your team already uses. Your corrections shape a practical, vendor-neutral map of the sector's real workflow and the tools inside it.</p>
+
+  <div class="declare">
+    <strong>Vendor-neutral by design.</strong> Any tools linked to our own network will be assessed against the same criteria as every other candidate. This work will not recommend a purchase. Please do not send confidential, personal or commercially sensitive information.
+  </div>
+
+  <div class="return">
+    <span class="mono">What comes back to contributors</span>
+    A corrected commercialisation workflow, a vendor-neutral map of tools and internal initiatives in real use, and practical pros and cons. Findings are shared with contributors first. Contributions before 30 September 2026 shape the first synthesis.
+  </div>
+
+  <h2>The workflow, seven stages</h2>
+  <p class="sub">Open a stage, say whether it's right, tell us what you actually use there. Two minutes per stage, do as many or as few as you like, then press send at the bottom.</p>
+
+  <details class="stage"><summary><span class="num">01</span><span><span class="t">Opportunity capture</span><span class="one">Disclosures, conversations and scouting surface potential opportunities from the research base.</span></span></summary>
+    <div class="stage-body">
+      <p class="jam"><strong>Where it jams:</strong> how much never gets disclosed at all, and what would surface it?</p>
+      <span class="q">Is this stage right?</span>
+      <div class="rate" data-stage="1">
+        <label><input type="radio" name="r1" value="Accurate"><span>Accurate</span></label>
+        <label><input type="radio" name="r1" value="Partly"><span>Partly</span></label>
+        <label><input type="radio" name="r1" value="Wrong"><span>Wrong</span></label>
+      </div>
+      <span class="q">Your correction</span>
+      <textarea id="c1" placeholder="What's missing or mis-described here?"></textarea>
+      <span class="q">What do you use here? Commercial tools, internal systems, pilots, spreadsheets or workarounds</span>
+      <input type="text" id="t1" placeholder="e.g. CRM, disclosure portal, a shared spreadsheet, nothing formal">
+    </div>
+  </details>
+
+  <details class="stage"><summary><span class="num">02</span><span><span class="t">Triage and prioritisation</span><span class="one">Deciding which opportunities get time and money, and which wait.</span></span></summary>
+    <div class="stage-body">
+      <p class="jam"><strong>Where it jams:</strong> is triage evidence-led, or does the loudest academic win?</p>
+      <span class="q">Is this stage right?</span>
+      <div class="rate"><label><input type="radio" name="r2" value="Accurate"><span>Accurate</span></label><label><input type="radio" name="r2" value="Partly"><span>Partly</span></label><label><input type="radio" name="r2" value="Wrong"><span>Wrong</span></label></div>
+      <span class="q">Your correction</span>
+      <textarea id="c2" placeholder="What's missing or mis-described here?"></textarea>
+      <span class="q">What do you use here?</span>
+      <input type="text" id="t2" placeholder="Scoring frameworks, committee packs, gut feel...">
+    </div>
+  </details>
+
+  <details class="stage"><summary><span class="num">03</span><span><span class="t">Routing and resourcing</span><span class="one">Matching each opportunity to a route, a budget and a person accountable for moving it.</span></span></summary>
+    <div class="stage-body">
+      <p class="jam"><strong>Where it jams:</strong> opportunities that pass triage and then sit unowned for months.</p>
+      <span class="q">Is this stage right?</span>
+      <div class="rate"><label><input type="radio" name="r3" value="Accurate"><span>Accurate</span></label><label><input type="radio" name="r3" value="Partly"><span>Partly</span></label><label><input type="radio" name="r3" value="Wrong"><span>Wrong</span></label></div>
+      <span class="q">Your correction</span>
+      <textarea id="c3" placeholder="What's missing or mis-described here?"></textarea>
+      <span class="q">What do you use here?</span>
+      <input type="text" id="t3" placeholder="Project trackers, PoC fund processes, case managers...">
+    </div>
+  </details>
+
+  <details class="stage"><summary><span class="num">04</span><span><span class="t">Customer and partner discovery</span><span class="one">Structured contact with the people who would pay: customers, licensees, partners, users.</span></span></summary>
+    <div class="stage-body">
+      <p class="jam"><strong>Where it jams:</strong> discovery done as a form-filling exercise after the decision, not before it.</p>
+      <span class="q">Is this stage right?</span>
+      <div class="rate"><label><input type="radio" name="r4" value="Accurate"><span>Accurate</span></label><label><input type="radio" name="r4" value="Partly"><span>Partly</span></label><label><input type="radio" name="r4" value="Wrong"><span>Wrong</span></label></div>
+      <span class="q">Your correction</span>
+      <textarea id="c4" placeholder="What's missing or mis-described here?"></textarea>
+      <span class="q">What do you use here?</span>
+      <input type="text" id="t4" placeholder="ICURe-style discovery, interview trackers, CRM...">
+    </div>
+  </details>
+
+  <details class="stage" open><summary><span class="num">05</span><span><span class="t">Route to value</span><span class="one">The evidence points at a route, and the routes genuinely differ. This is the branch point.</span></span></summary>
+    <div class="stage-body">
+      <div class="branch">
+        <span class="mono">The visible branch: four legitimate exits from this stage</span>
+        <ul>
+          <li>Licence or industry partnership</li>
+          <li>New venture</li>
+          <li>Further validation or programme support</li>
+          <li>Stop, pause, or return for more evidence</li>
+        </ul>
+      </div>
+      <p class="jam"><strong>Where it jams:</strong> does your process treat spinout as the default and everything else as failure?</p>
+      <span class="q">Is this stage right?</span>
+      <div class="rate"><label><input type="radio" name="r5" value="Accurate"><span>Accurate</span></label><label><input type="radio" name="r5" value="Partly"><span>Partly</span></label><label><input type="radio" name="r5" value="Wrong"><span>Wrong</span></label></div>
+      <span class="q">Your correction</span>
+      <textarea id="c5" placeholder="What's missing or mis-described here?"></textarea>
+      <span class="q">What do you use here?</span>
+      <input type="text" id="t5" placeholder="Decision frameworks, route criteria, none...">
+    </div>
+  </details>
+
+  <details class="stage"><summary><span class="num">06</span><span><span class="t">Deal or investment readiness</span><span class="one">Preparing the chosen route: the licence package, the venture proposition, the partner case.</span></span></summary>
+    <div class="stage-body">
+      <p class="jam"><strong>Where it jams:</strong> readiness work that repeats for every deal because nothing is systematised.</p>
+      <span class="q">Is this stage right?</span>
+      <div class="rate"><label><input type="radio" name="r6" value="Accurate"><span>Accurate</span></label><label><input type="radio" name="r6" value="Partly"><span>Partly</span></label><label><input type="radio" name="r6" value="Wrong"><span>Wrong</span></label></div>
+      <span class="q">Your correction</span>
+      <textarea id="c6" placeholder="What's missing or mis-described here?"></textarea>
+      <span class="q">What do you use here?</span>
+      <input type="text" id="t6" placeholder="Term sheet templates, data rooms, pitch systems...">
+    </div>
+  </details>
+
+  <details class="stage"><summary><span class="num">07</span><span><span class="t">First external commitment</span><span class="one">A licence, a PoC contract, a collaboration agreement, a translational award, a first customer, or an investment. The first outside party putting something real on the table.</span></span></summary>
+    <div class="stage-body">
+      <p class="jam"><strong>Where it jams:</strong> how long the gap runs between "ready" and the first commitment, and what fills it.</p>
+      <span class="q">Is this stage right?</span>
+      <div class="rate"><label><input type="radio" name="r7" value="Accurate"><span>Accurate</span></label><label><input type="radio" name="r7" value="Partly"><span>Partly</span></label><label><input type="radio" name="r7" value="Wrong"><span>Wrong</span></label></div>
+      <span class="q">Your correction</span>
+      <textarea id="c7" placeholder="What's missing or mis-described here?"></textarea>
+      <span class="q">What do you use here?</span>
+      <input type="text" id="t7" placeholder="Pipeline reporting, investor CRMs, the Funding Commons...">
+    </div>
+  </details>
+
+  <div class="send">
+    <button class="send-btn" id="sendBtn" type="button">Send my corrections &rarr;</button>
+    <p class="smallnote">The button opens an email in your own mail app with your answers filled in, addressed to the practice. Nothing is stored on this page, nothing is sent until you press send in your mail app. Or skip the form and just email <a href="mailto:brian@theinnovationcommons.com?subject=Workflow%20corrections">brian@theinnovationcommons.com</a>.</p>
+  </div>
+
+  <h2>Three ways to contribute. Choose one.</h2>
+  <div class="asks">
+    <div class="ask">
+      <span class="mono">Ask 01 &middot; Thirty minutes</span>
+      <h3>Book a workflow walkthrough</h3>
+      <p>Walk us through how one recent opportunity actually moved through your office, start to wherever it is now. We take notes, you get the comparison.</p>
+      <a class="btn" href="mailto:brian@theinnovationcommons.com?subject=Workflow%20walkthrough&body=I'd%20like%20to%20book%20a%20walkthrough.%20Good%20times%20for%20me%3A%20">Book a walkthrough</a>
+    </div>
+    <div class="ask">
+      <span class="mono">Ask 02 &middot; Two minutes</span>
+      <h3>Put a tool or initiative on the map</h3>
+      <p>Vendor pitch in your inbox? Internal pilot, home-grown tool, spreadsheet or workflow already in use? Send a link or a short note. Each one gets the same vendor-neutral first-pass assessment: usefulness, evidence, integration, governance, adoption.</p>
+      <a class="btn" href="mailto:brian@theinnovationcommons.com?subject=Tool%20or%20initiative%20for%20the%20map&body=Name%2Flink%3A%0AWhat%20it%20does%3A%0AWhere%20it%20sits%20in%20the%20workflow%3A%20">Nominate a tool</a>
+    </div>
+    <div class="ask">
+      <span class="mono">Ask 03 &middot; Ten minutes</span>
+      <h3>Correct the workflow above</h3>
+      <p>Open the stages, mark what's right and wrong, tell us what you actually use, press send. That's the survey; there is no other one.</p>
+      <a class="btn" href="#top" onclick="window.scrollTo({top:0});return false;">Back to the stages</a>
+    </div>
+  </div>
+  <p class="smallnote">Contact: Brian McCaul, <a href="mailto:brian@theinnovationcommons.com">brian@theinnovationcommons.com</a>. First synthesis shared with contributors in autumn 2026.</p>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>An Innovation Commons open consultation &middot; <a href="/field-notes.html">Field Notes</a> &middot; <a href="/">theinnovationcommons.com</a></div>
+    <div class="sig">Built by builders.</div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+document.getElementById("sendBtn").addEventListener("click", function(){
+  var lines = ["Workflow corrections from the consultation page:",""];
+  var names = ["Opportunity capture","Triage and prioritisation","Routing and resourcing","Customer and partner discovery","Route to value","Deal or investment readiness","First external commitment"];
+  for(var i=1;i<=7;i++){
+    var r = document.querySelector('input[name="r'+i+'"]:checked');
+    var c = document.getElementById("c"+i).value.trim();
+    var t = document.getElementById("t"+i).value.trim();
+    if(r||c||t){
+      lines.push("Stage "+i+" ("+names[i-1]+"): "+(r?r.value:"no rating"));
+      if(c) lines.push("  Correction: "+c);
+      if(t) lines.push("  In use: "+t);
+      lines.push("");
+    }
+  }
+  if(lines.length<3){ lines.push("(No stages completed yet; open a stage above and have a go.)"); }
+  var body = lines.join("\n");
+  if(body.length>1800) body = body.slice(0,1800)+"\n[trimmed; anything longer, just reply with the rest]";
+  window.location.href = "mailto:brian@theinnovationcommons.com?subject="+encodeURIComponent("Workflow corrections")+"&body="+encodeURIComponent(body);
+});
+</script>
+<script data-goatcounter="https://innovationcommons.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
