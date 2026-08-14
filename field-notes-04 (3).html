@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Notes No. 04, One island, two rulers | Innovation Commons</title>
+<meta name="description" content="The island of Ireland forms roughly thirty university spinouts a year and measures them with two different rulers. AKTS against HE-BCI: what an all-island evidence base would take.">
+<meta property="og:title" content="Field Notes No. 04, One island, two rulers">
+<meta property="og:description" content="AKTS against HE-BCI. Two knowledge transfer rulers, one island, and the question neither can answer: is falling spinout formation discipline or decline?">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://theinnovationcommons.com/field-notes-04.html">
+<meta property="og:image" content="https://theinnovationcommons.com/og-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,900;1,500&family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4EFE6; --ink:#1A1814; --oxide:#B13B1F; --gold:#C89944;
+  --ink-60:rgba(26,24,20,.62); --ink-15:rgba(26,24,20,.15); --ink-08:rgba(26,24,20,.07);
+  --measure:44rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter Tight',system-ui,sans-serif;font-size:1.075rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--ink);text-decoration-color:var(--gold);text-decoration-thickness:1.5px;text-underline-offset:3px}
+a:hover{color:var(--oxide);text-decoration-color:var(--oxide)}
+a:focus-visible{outline:2px solid var(--oxide);outline-offset:3px}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.25rem}
+.wrap-wide{max-width:64rem;margin:0 auto;padding:0 1.25rem}
+.mono{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;font-weight:500}
+
+/* Masthead */
+header{border-bottom:2px solid var(--ink);padding:1.4rem 0 1.1rem}
+.mast{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mast-left{display:flex;align-items:center;gap:.8rem}
+.keystone{width:22px;height:26px;flex:none}
+.mast a{text-decoration:none}
+.mast-right{color:var(--ink-60)}
+
+/* Edition head */
+.edition-head{padding:3.2rem 0 2.4rem;border-bottom:1px solid var(--ink-15)}
+.edition-label{display:flex;gap:1.4rem;flex-wrap:wrap;color:var(--ink-60);margin-bottom:1.4rem}
+.edition-label .pillar{color:var(--oxide)}
+h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.5rem,7vw,4.1rem);line-height:1.04;letter-spacing:-.015em;margin:0 0 1.2rem}
+h1 .sig{font-style:italic;font-weight:500;color:var(--oxide)}
+.standfirst{font-size:1.22rem;line-height:1.55;color:var(--ink);max-width:38rem;margin:0}
+.byline{margin-top:1.6rem;color:var(--ink-60)}
+
+/* Body */
+main{padding:2.6rem 0 1rem}
+h2{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:500;color:var(--ink);margin:3rem 0 1.1rem;padding-top:1.6rem;border-top:1px solid var(--ink-15)}
+h2::before{content:"";display:inline-block;width:.55rem;height:.55rem;background:var(--gold);margin-right:.65rem;transform:translateY(-1px)}
+p{margin:0 0 1.15rem}
+.pull{border-left:3px solid var(--oxide);padding:.2rem 0 .2rem 1.1rem;margin:1.8rem 0;font-family:'Fraunces',serif;font-weight:500;font-size:1.28rem;line-height:1.45}
+.note{background:var(--ink-08);border:1px solid var(--ink-15);padding:1.1rem 1.2rem;margin:1.6rem 0;font-size:.98rem}
+.note .mono{display:block;margin-bottom:.5rem;color:var(--ink-60)}
+
+/* Annex table */
+.annex{margin:2rem 0 1rem}
+.table-scroll{overflow-x:auto;border:1px solid var(--ink-15)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;line-height:1.35;background:#fbf8f2}
+caption{text-align:left;padding:.8rem .9rem;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;color:var(--ink-60);border:1px solid var(--ink-15);border-bottom:none;background:var(--paper)}
+th{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;font-size:.66rem;font-weight:500;text-align:right;padding:.55rem .65rem;border-bottom:2px solid var(--ink);background:var(--paper);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:.45rem .65rem;text-align:right;border-bottom:1px solid var(--ink-15);font-variant-numeric:tabular-nums}
+tr.ni td{background:rgba(200,153,68,.10)}
+tr.total td{border-top:2px solid var(--ink);font-weight:600;background:var(--paper)}
+.table-foot{font-size:.82rem;color:var(--ink-60);margin-top:.6rem}
+
+/* Methods */
+.methods{border:1.5px solid var(--ink);padding:1.4rem 1.5rem;margin:2.6rem 0;font-size:.94rem;line-height:1.6}
+.methods h2{border:none;margin:0 0 .9rem;padding:0}
+.methods p{margin:0 0 .8rem}
+.methods strong{font-weight:600}
+
+/* Footer */
+footer{border-top:2px solid var(--ink);margin-top:3.5rem;padding:1.6rem 0 2.4rem;font-size:.92rem;color:var(--ink-60)}
+.foot-row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline}
+@media (max-width:560px){.edition-label{gap:.8rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap-wide mast">
+    <div class="mast-left">
+      <svg class="keystone" viewBox="0 0 100 120" aria-hidden="true"><path d="M30 10 L70 10 L88 110 L12 110 Z" fill="#1A1814"/></svg>
+      <a href="index.html"><span class="mono">Innovation Commons</span></a>
+    </div>
+    <nav class="mast-right"><a href="field-notes.html"><span class="mono">Field Notes Archive</span></a></nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="edition-head">
+    <div class="edition-label mono">
+      <span>Field Notes No. 04</span>
+      <span class="pillar">Evidence</span>
+      <span>August 2026</span>
+    </div>
+    <h1>One island, two <span class="sig">rulers</span></h1>
+    <p class="standfirst">The island of Ireland forms roughly thirty university spinouts a year and measures them with two different rulers. Neither ruler, on its own, measures the thing that decides whether those companies live.</p>
+    <p class="byline mono">Brian McCaul · Belfast</p>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <p>The island of Ireland forms roughly thirty university spinouts a year: twenty in the Republic in 2025, on a five-year average of twenty-five, and a fairly consistent four to seven a year in the North. It measures them with two different rulers.</p>
+
+  <p>This Field Note puts the two national datasets side by side, adds what the capital data shows, and sets out what an all-island evidence base would need to reconcile. Every figure carries its source and its limits; a methods box at the end states the bridges used, and the full institutional table sits in the annex.</p>
+
+  <h2>Two rulers</h2>
+
+  <p>The Republic counts through the Annual Knowledge Transfer Survey, published each year by Knowledge Transfer Ireland, most recently in August 2026: calendar year, twenty research performing organisations, agreements as the unit of account. Northern Ireland counts through HE-BCI, the UK-wide survey run by HESA: academic year, income as the unit of account.</p>
+
+  <p>Credit where due before the critique. These are two of the very few systems anywhere that publish institution-level knowledge transfer data, annually, as open data. The main European comparator, the ASTP survey of roughly 480 knowledge transfer offices across 23 countries, publishes aggregates only, around two years in arrears. The analysis in this note is possible precisely because both islands' agencies chose transparency. The gaps described below are gaps in what is measured, not in the willingness to publish.</p>
+
+  <p>The difference between the rulers is not minor. In an agreement count, a €10,000 Innovation Voucher weighs the same as a multi-year Innovation Partnership. In an income count, they differ by two orders of magnitude. One framework tells you how busy the system is; the other tells you what the market paid for it. Put a Northern institution and a Southern one in the same league table without a bridge and the table means nothing.</p>
+
+  <p>The definitions diverge too. An "active spin-out" in the Southern count must be three years post-formation with at least one paid employee and either equity raised or sales booked. The Northern count asks only that the company survive three years. Same phrase, different test, and the Southern test is the tougher and arguably the better one. It also means the published Southern counts can run below what institutions describe on their own websites; the definition, not the activity, sets the number. The UK's new Spin-out Register may close the gap between the two tests over time.</p>
+
+  <p>And each ruler stops short somewhere that matters. AKTS defines gross licence revenue, repeat business and non-exclusive royalty-free licences in its glossary, and publishes none of them. It reports spin-out employment but not a euro of investment raised. HE-BCI does collect estimated external investment received, per institution, per year, which the Southern survey does not attempt; but its Northern Ireland cut covers exactly two universities, so the NI picture swings on single returns. The full capital story, on both sides of the border, has been left to commercial data, Dealroom and Beauhurst and their kind. That is worth pausing on: the people with the sharpest need for reconciled numbers are investors, for whom every unreconciled count is a diligence cost, which is why commercial providers built the all-island view before either government did.</p>
+
+  <h2>Same direction of travel, opposite headline</h2>
+
+  <p>Read the 2025 releases together and the two jurisdictions appear to be moving in opposite directions.</p>
+
+  <p>The South is expanding on almost every flow measure: research expenditure up 8.3% to €953m, invention disclosures up 18% to 528, priority patent filings up 49% to 118, licence and option agreements up 19% to 263, industry agreements up 9.8%.</p>
+
+  <p>The UK series, which carries Northern Ireland, is contracting: business collaboration income down 3.7% in real terms, contracted research down 7.5%, patents granted down 13%, a cumulative patent portfolio shrinking for a second year. Isolate Northern Ireland within that series, however, and the picture is more volatile than the national trend: a sharp contraction in 2023/24 followed by a strong rebound in 2024/25 in knowledge services income, with the caveat that at two-university grain, year-on-year swings partly reflect single returns rather than underlying activity.</p>
+
+  <p>On company formation, the honest reading differs by geography. Southern formation fell to a five-year low, 25 down to 20. UK-wide registrations have declined since their 2020/21 peak. Northern formation is flat single digits, four to seven a year, too small to carry a trend but fairly consistent. What all three series share is the other side of the ledger: survival is rising everywhere. Active companies in the South are up from 166 to 178, employing 369 more people in a year. The North's three-year survivors are up from 64 to 81 over five years, its active base from 77 to 89. The UK's survivors are up from 1,687 to 1,776.</p>
+
+  <p>The Southern launch communications, reasonably enough, emphasised the rising flow measures; the formation figure's five-year low went unremarked. That is not a criticism. It is the point. The same file supports either emphasis, which is what this note means by the flattering mirror.</p>
+
+  <p>Fewer companies are being formed across these islands, and the ones that exist are lasting longer. That deserves a moment's reflection, because it can carry two opposite meanings. Read one way, it is the constraint moving upstream: survival is solved and entry is not. Read the other way, it is policy succeeding: the declared direction in both jurisdictions is fewer, better spinouts, and rising survival alongside falling formation is exactly what that policy predicts.</p>
+
+  <div class="pull">Which reading is true matters enormously, and here is the uncomfortable part: on the data both governments currently publish, nobody can tell.</div>
+
+  <p>Distinguishing discipline from decline requires formation, survival and financing joined in one dataset, and no such dataset exists.</p>
+
+  <h2>Stock, flow and the flattering mirror</h2>
+
+  <p>Every institution on this island can find a national dataset that flatters it, because stock and flow tell different stories from the same file.</p>
+
+  <p>Stock is what an institution holds: patent families accumulated over decades, spinout portfolios built since the 1980s. Flow is what came through the door this year: disclosures, filings, new agreements, industry income. Intensity is flow divided by input, usually research expenditure, and it is the only basis on which a €30m institution and a €140m institution can be compared honestly.</p>
+
+  <p>Bridge the two frameworks and the North holds its own. Queen's University Belfast reported 90 invention disclosures in 2024/25, more than any single Southern institution reported in 2025, against a three-year average of 74. On research income of £112.4m, the financial statements line that most closely matches the AKTS basis, that is roughly 6 to 7 disclosures per €10m, at or above the Southern national rate of 5.5 and in the range of the strongest Southern performers. The annual report separately cites £124.6m of new research awards, a pipeline figure that compares to nothing in AKTS, and the habit of quoting whichever figure is larger is itself a small illustration of this note's theme. Ulster's disclosures have risen every year in the series, 15 to 33 over four years. Filing propensity is similar on both sides of the border: roughly a fifth of disclosures proceed to a priority filing in each jurisdiction. These comparisons carry stated caveats on periods, denominators and incentives, set out in the methods box; with those stated, on the evidence available, whatever separates North and South, the production of commercialisable ideas per pound of research is not obviously it. This is consistent with the North's record on normalised UK measures, where Queen's ranked first in the UK in 2019 and 2020 and second in 2022 on the Octopus Ventures Entrepreneurial Impact Ranking, a HESA-derived measure of spinout and IP output relative to total funding.</p>
+
+  <p>The Southern data shows how far the lenses diverge within one jurisdiction. The national rate is 5.5 disclosures per €10m; individual institutions range from under 2 to over 12, with small research bases at both extremes of the distribution, which is the small-denominator caution doing its work in public. Institution-level figures for the South sit in the published AKTS appendices, and this note deliberately does not reproduce them as a single table, for the reason the note itself argues: without stated lenses and bridges, a raw institutional table invites exactly the reading it should prevent. The annex below therefore stays at jurisdiction level, with the two Northern universities shown because they are discussed above. Institutions with the deepest patent stock are not the ones converting research spend into new opportunities fastest, and neither fact invalidates the other. A league table built on stock rewards longevity. One built on intensity rewards current practice. Any serious baseline reports both and says which question it is answering.</p>
+
+  <h2>The Queen's case, declared interest and all</h2>
+
+  <p>One institution illustrates the whole argument, and since I ran its commercialisation company for eleven years, I should declare the interest and let you weight my reading accordingly.</p>
+
+  <p>Queen's reported £11.8m of IP revenue in 2024/25, its strongest year in the published decade. The composition, though, has inverted. Ten years ago the line was carried by licensing, running £7m to £8m a year; in 2024/25 licensing contributed £354k and the sale of shares in spin-out companies contributed £11.4m. Read the licence line alone and 2024/25 looks like a weak year. Read the whole table and it is the best year in a decade, as equity built patiently over forty years matures into realisations. Neither reading is false. Licensing income is lumpy, despite its reputation as the steadier of the two revenue routes; single agreements move the line by millions in either direction, and the published series shows exactly that pattern, swinging between £0.3m and £8.6m across the decade. Which is the point of this whole note: the same institution, the same file, two honest and opposite stories, depending on whether you measure the flow or harvest the stock.</p>
+
+  <p>Ulster tells a quieter version of the same story from the other direction. Its licence income is negligible, yet 29 of its 33 spin-outs have survived three years or more, and its portfolio attracted an estimated £20m of external investment in 2024/25. An institution commercialising through companies rather than licences is invisible on an IP-income league table and solid on a survival one. Again: choose your ruler, choose your story.</p>
+
+  <h2>What the capital layer adds</h2>
+
+  <p>The commercial data closes the loop the surveys leave open, and it is already all-island by design: Dealroom's live Ireland platform tracks spinouts from nineteen universities across both jurisdictions in one dataset, and the Royal Academy of Engineering's Enterprise Hub has been researching the island's deep tech spinouts with Dealroom, with findings forthcoming. What can be said from the public layer is enough for the argument: the island's spinout capital story is currently legible only through commercial data, because neither survey carries the full investment picture. The published UK evidence shows the shape to expect, a spinout market maturing downstream while its entry point stays narrow; the island-specific detail belongs to the forthcoming report and will be worth reading when it lands.</p>
+
+  <p>And where investment is measured, it is measured twice, differently. HE-BCI estimates external investment received by Northern spin-outs at £158m in 2024/25 alone, all sources, all sectors, the whole active portfolio; the commercial count applies venture-round definitions across the island. Both approaches are right. They count different money through different windows, and nobody publishes the reconciliation. The three-count problem, it turns out, applies to capital too.</p>
+
+  <h2>The three-count problem</h2>
+
+  <p>How many spinouts does this island have? Three defensible answers exist. The commercial count runs materially higher than either survey. The Southern survey says 178 active companies and 127 formed in five years, on its employee-and-revenue definition. The Northern survey says 89 active on its survival definition. All three are right. None agrees with the others, and at institutional level the counts can diverge widely.</p>
+
+  <p>This is a definitions problem, not a failing, and it is fixable. The reconciliation bridge is boring, unglamorous work: one register, stated inclusion rules, each national count expressed as a filter on it. And it is realistic work, because this is how these surveys have always evolved: the UK's own Spin-out Register, reaching back to capture every firm founded since 2012/13, exists because the 2024 HE-BCI review demanded it. Registers happen when a review asks for them. Nothing equivalent exists for the island as a whole, and no review has yet asked.</p>
+
+  <h2>What would an all-island evidence base take</h2>
+
+  <p>Four things, none of them expensive relative to what is already spent collecting the numbers.</p>
+
+  <p>A common spine: the island's institutions on one register with stated definitions, so the counts become views of one list. A stated bridge between AKTS and HE-BCI, agreement-to-income, calendar-to-academic, definition-to-definition, published once and reused. Investment data joined to production data, so formation, survival and financing read as one pipeline rather than three literatures. And intensity as the default lens, because an island whose institutions range from €200k to €140m in research expenditure cannot be ranked raw.</p>
+
+  <p>The cheapest version of the bridge already suggests itself: the two Northern universities making a voluntary AKTS-format return alongside their HE-BCI one, though AKTS participation is bound up with KTI funding structures, so the register route is the likelier vehicle. There is also, for the first time in a while, somewhere natural for the work to live. The Programme for Government commits to "develop an all-island innovation and entrepreneurial ecosystem"; the Shared Island Unit's commissioned research programme with the ESRI has been producing North-South comparative evidence since 2021 and exists for exactly this kind of question; and InterTradeIreland has run cross-border business data collection for two decades. A comparative study of the two ecosystems has already recommended this route. The work is administrative, not conceptual. The concepts are settled; nobody has yet been asked to join them.</p>
+
+  <p>The finding waiting at the end of that work is already visible in the fragments: an island that has learned to keep its spinouts alive, that generates commercialisable ideas at comparable rates on both sides of the border, and that cannot currently tell whether its falling formation rate is discipline or decline. Both governments are measuring the harvest. Neither is measuring the gate. They count what enters the pipeline, the disclosures, and what leaves it, the licences and the companies. Neither can see inside, where opportunities are triaged, stall, convert or quietly die, and inside is exactly where discipline and decline would look different.</p>
+
+  <div class="annex">
+    <h2 id="annex">Annex: the jurisdictional table</h2>
+    <div class="table-scroll">
+      <table>
+        <caption>Jurisdiction-level measures, AKTS 2025 (calendar year) and HE-BCI 2024/25 (academic year, shaded). Northern universities shown as discussed in the text; Southern institution-level figures are in the AKTS appendices.</caption>
+        <thead>
+          <tr><th>Unit</th><th>Research inc/exp (€m)</th><th>Disclosures</th><th>Per €10m</th><th>Patent filings</th><th>LOAs</th><th>New spin-outs</th><th>Active spin-outs</th></tr>
+        </thead>
+        <tbody>
+          <tr class="ni"><td>Queen's University Belfast</td><td>132.6</td><td>90</td><td>6.8</td><td>18</td><td>n/a</td><td>2</td><td>56</td></tr>
+          <tr class="ni"><td>Ulster University</td><td>23.2</td><td>33</td><td></td><td>6</td><td>n/a</td><td>5</td><td>33</td></tr>
+          <tr class="total"><td>Northern Ireland (HE-BCI)</td><td>155.8</td><td>123</td><td></td><td>24</td><td>n/a</td><td>7</td><td>89</td></tr>
+          <tr class="total"><td>Republic of Ireland (AKTS)</td><td>953.4</td><td>528</td><td>5.5</td><td>118</td><td>263</td><td>20</td><td>178</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-foot">Shaded rows report HE-BCI 2024/25 on the denominator bridge stated in the methods box; sterling at £1 = €1.18. Intensity is left blank where a small or contested denominator would mislead (Ulster's two published research income bases roughly double or halve its figure; see methods). LOA counts are not comparable across frameworks and are not bridged. The Southern new spin-out total of 20 is net of two joint companies against an appendix gross of 22; the NI new-companies figure of 7 includes one staff start-up, spin-outs proper 6. Active spin-out definitions differ North and South and the columns must not be compared directly.</p>
+  </div>
+
+  <div class="methods">
+    <h2>Methods</h2>
+    <p><strong>Sources.</strong> KTI Annual Knowledge Transfer Survey 2025 (published August 2026); HESA HE-BCI 2024/25 open data, tables 4a, 4c, 4d and 4e (CC-BY-4.0); NCUB analysis of HE-BCI, May 2026; Queen's University Belfast financial statements 2024/25; Ulster University financial statements 2023/24; Octopus Ventures Entrepreneurial Impact Rankings 2019, 2020 and 2022; ASTP survey, latest executive report (FY2022); Programme for Government 2025, Securing Ireland's Future; Dealroom Ireland platform (ireland.dealroom.co). Derived ratios are the author's own analysis of public records.</p>
+    <p><strong>Periods.</strong> AKTS reports calendar 2025; HE-BCI reports August 2024 to July 2025. The overlap is close but not exact; no adjustment is made.</p>
+    <p><strong>Currency.</strong> Sterling converted at £1 = €1.18, the approximate average over the HE-BCI reporting year; results are insensitive to the plausible range of the rate and are stated to a precision the bridge can bear.</p>
+    <p><strong>Denominator bridge.</strong> Northern intensity uses income recognised in year on research grants and contracts from published financial statements, the closest accrual-basis proxy for the AKTS basis of research expenditure less block grant. New-awards figures are excluded on both sides. Ulster's intensity is not stated because its two published research income bases (a £19.7m grants-and-contracts line and a broader figure of roughly £38.8m) roughly double or halve the answer, and small denominators flatter ratios.</p>
+    <p><strong>Disclosures.</strong> Counts partly reflect institutional policy and incentive design as well as underlying invention; the South ties knowledge transfer funding to reported returns, which sharpens recording. Queen's 90 is a single-year high against a three-year average of 74; both are stated.</p>
+    <p><strong>Endpoint ratios.</strong> Published pipeline ratios, for example 528 Southern disclosures against 20 spinouts and 263 LOAs in 2025, are cohort-mismatched, since formations in any year arise from disclosures of prior years; they indicate throughput shape only and are not conversion rates.</p>
+    <p><strong>Employment and investment.</strong> Northern spin-out employment estimates (HE-BCI, all active firms) and Southern active-spin-out employment (AKTS, strict definition) are not comparable and are not compared. Investment estimates are provider returns, all sources, and are not venture-round counts.</p>
+    <p><strong>Grain.</strong> Northern Ireland's cut is two universities; single returns move jurisdiction-level lines, and single-institution portfolio movements may include restatement.</p>
+  </div>
+
+  <p class="mono" style="color:var(--ink-60);margin-top:2.4rem">Built by builders.</p>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>
+      <span class="mono">Field Notes No. 04 · August 2026</span><br>
+      Innovation Commons Ltd, registered in England and Wales, company number 17158538. Based in Belfast.
+    </div>
+    <div>
+      <a href="field-notes.html"><span class="mono">Archive</span></a> ·
+      <a href="mailto:brian@theinnovationcommons.com"><span class="mono">Write</span></a>
+    </div>
+  </div>
+</footer>
+
+<script data-goatcounter="https://innovationcommons.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
